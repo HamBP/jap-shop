@@ -3,6 +3,7 @@ package org.algosketch.jpashop.domain.item;
 import lombok.Getter;
 import lombok.Setter;
 import org.algosketch.jpashop.domain.Category;
+import org.algosketch.jpashop.exception.NotEnoughStockException;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,4 +26,16 @@ public class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStock(int quantity) {
+        int resStock = this.stockQuantity - quantity;
+        if(resStock < 0) {
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = resStock;
+    }
 }
