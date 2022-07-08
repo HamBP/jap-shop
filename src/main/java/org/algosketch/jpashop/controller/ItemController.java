@@ -2,11 +2,14 @@ package org.algosketch.jpashop.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.algosketch.jpashop.domain.item.Book;
+import org.algosketch.jpashop.domain.item.Item;
 import org.algosketch.jpashop.service.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,13 +17,13 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("items/new")
+    @GetMapping("/items/new")
     public String createForm(Model model) {
         model.addAttribute("form", new BookForm());
         return "items/createItemForm";
     }
 
-    @PostMapping("items/new")
+    @PostMapping("/items/new")
     public String create(BookForm form) {
         Book book = new Book();
         book.setName(form.getName());
@@ -31,5 +34,12 @@ public class ItemController {
 
         itemService.saveItem(book);
         return "redirect:/items";
+    }
+
+    @GetMapping("/items")
+    public String list(Model model) {
+        List<Item> items = itemService.findItems();
+        model.addAttribute("items", items);
+        return "items/itemList";
     }
 }
