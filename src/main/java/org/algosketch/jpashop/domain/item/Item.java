@@ -1,6 +1,7 @@
 package org.algosketch.jpashop.domain.item;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.algosketch.jpashop.domain.Category;
 import org.algosketch.jpashop.exception.NotEnoughStockException;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-@Getter
+@Getter @Setter
 public class Item {
 
     @Id
