@@ -9,6 +9,7 @@ import org.algosketch.jpashop.domain.item.Item;
 import org.algosketch.jpashop.repository.ItemRepository;
 import org.algosketch.jpashop.repository.MemberRepository;
 import org.algosketch.jpashop.repository.OrderRepository;
+import org.algosketch.jpashop.repository.OrderSearch;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +47,7 @@ public class OrderService {
         order.cancel();
     }
 
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
+    }
 }
